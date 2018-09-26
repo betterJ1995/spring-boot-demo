@@ -1,32 +1,39 @@
 <?xml version="1.0"?>
-<configuration>
-
-    <!-- ch.qos.logback.core.ConsoleAppender 控制台输出 -->
-
-    <!-- 彩色日志 -->
-    <!-- 彩色日志依赖的渲染类 -->
-    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
-    <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
-    <conversionRule conversionWord="wEx"
-                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
-    <!-- 彩色日志格式 -->
-    <property name="CONSOLE_LOG_PATTERN"
-              value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}" />
-    <!-- Console 输出设置 -->
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+<!--开启自动刷新 刷新间隔 10 s-->
+<configuration scan="true" scanPeriod="10 seconds">
+    <!--文件日志-->
+    <appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--文件路径 个人电脑下会自动创建路径及文件-->
+        <file>D:/logs/today.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>D:/logs/today-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!--30 天-->
+            <maxHistory>30</maxHistory>
+            <!--单文件最大100M-->
+            <maxFileSize>100MB</maxFileSize>
+            <!--总文件最大3GB-->
+            <totalSizeCap>5GB</totalSizeCap>
+        </rollingPolicy>
         <encoder>
-            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
-            <charset>utf8</charset>
+            <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+        <append>false</append>
+        <prudent>false</prudent>
+    </appender>
+
+    <!-- Console 彩色输出设置 -->
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>true</withJansi>
+        <encoder>
+            <pattern>%thread | %date{MM-dd HH:mm:ss} | %highlight(%-5level) | %green(%logger) | %msg%n</pattern>
         </encoder>
     </appender>
-    <!-- 日志级别 -->
-    <!--打印sql-->
-    <logger name="cn.jijiajian.jdbtool.dao" level="debug"/>
-    <logger name="org.springframework" level="info"/>
+    <!--打印sql 设置位debug-->
+    <logger name="cn.j.sbdemo" level="debug"/>
+    <logger name="org.springframework.web" level="info"/>
     <logger name="org.apache" level="info"/>
-    <root>
-        <level value="info" />
-        <appender-ref ref="CONSOLE" />
+    <root level="info">
+        <appender-ref ref="Console"/>
+        <appender-ref ref="File"/>
     </root>
-
 </configuration>
