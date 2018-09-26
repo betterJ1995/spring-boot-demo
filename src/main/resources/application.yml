@@ -1,9 +1,11 @@
 server:
+  #端口
   port: 8886
   tomcat:
     uri-encoding: UTF-8
 
 spring:
+  # 时间格式化配置
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     joda-date-time-format: yyyy-MM-dd HH:mm:ss
@@ -13,13 +15,15 @@ spring:
       force: true
       charset: UTF-8
       enabled: true
+  # 数据源
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/db1?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/demo_db?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
     type: com.alibaba.druid.pool.DruidDataSource
     username: root
     password: 1234
     sql-script-encoding: utf-8
+  # redis 缓存
   redis:
     database: 0
     host: 127.0.0.1
