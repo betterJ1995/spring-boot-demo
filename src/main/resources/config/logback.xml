@@ -6,11 +6,9 @@
         <!--文件路径 个人电脑下会自动创建路径及文件-->
         <file>D:/logs/today.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>D:/logs/today-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>D:/logs/today-%d{yyyy-MM-dd}.log</fileNamePattern>
             <!--30 天-->
             <maxHistory>30</maxHistory>
-            <!--单文件最大100M-->
-            <maxFileSize>100MB</maxFileSize>
             <!--总文件最大3GB-->
             <totalSizeCap>5GB</totalSizeCap>
         </rollingPolicy>
@@ -32,18 +30,9 @@
     <logger name="cn.j.sbdemo" level="debug"/>
     <logger name="org.springframework.web" level="info"/>
     <logger name="org.apache" level="info"/>
-<<<<<<< HEAD
-    <!--待测试会不会打sql-->
-    <logger name="druid.sql.Statement" level="info">
-        <appender-ref ref="sql"/>
-    </logger>
-    <root>
-        <level value="info" />
-        <appender-ref ref="CONSOLE" />
-=======
+
     <root level="info">
         <appender-ref ref="Console"/>
         <appender-ref ref="File"/>
->>>>>>> 60f07ad9452f70aa681f3adbf505c0d35368b30f
     </root>
 </configuration>
