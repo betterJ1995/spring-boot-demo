@@ -24,6 +24,10 @@
     <logger name="cn.jijiajian.jdbtool.dao" level="debug"/>
     <logger name="org.springframework" level="info"/>
     <logger name="org.apache" level="info"/>
+    <!--待测试会不会打sql-->
+    <logger name="druid.sql.Statement" level="info">
+        <appender-ref ref="sql"/>
+    </logger>
     <root>
         <level value="info" />
         <appender-ref ref="CONSOLE" />
