@@ -29,18 +29,23 @@ public class R extends HashMap<String, Object> {
         return new R().code(500).msg(msg);
     }
 
+
     public R msg(String msg) {
-        this.put("msg", msg);
+        this.put(KEY_MSG, msg);
         return this;
     }
 
     public R code(Integer code) {
-        this.put("code", code);
+        this.put(KEY_CODE, code);
         return this;
     }
 
     public R data(Integer data) {
-        this.put("data", data);
+        this.put(KEY_DATA, data);
         return this;
     }
+
+    private static final String KEY_MSG = "msg";
+    private static final String KEY_CODE = "code";
+    private static final String KEY_DATA = "data";
 }

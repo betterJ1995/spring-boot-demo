@@ -43,11 +43,7 @@ public class SwaggerConfig {
 //                .apis(RequestHandlerSelectors.basePackage(API_BASE_PACKAGE))
                 .paths(PathSelectors.any()).build();
     }
-
-    /**
-     * apiInfo
-     * @return
-     */
+    
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title(API_TITLE)
