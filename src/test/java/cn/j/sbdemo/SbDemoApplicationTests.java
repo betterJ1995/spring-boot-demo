@@ -11,13 +11,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class SbDemoApplicationTests {
 
-	@Autowired
-	private SysUserMapper sysUserMapper;
+    @Autowired
+    private SysUserMapper sysUserMapper;
 
-	@Test
-	public void contextLoads() {
-		System.out.println("===========");
-		System.out.println(sysUserMapper.selectList(null));
-	}
+    @Test
+    public void contextLoads() {
+        System.out.println("===========");
+        System.out.println(sysUserMapper.listAll());
+    }
 
 }

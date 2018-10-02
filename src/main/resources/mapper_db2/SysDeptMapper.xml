@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.j.sbdemo.sys.dao.SysDeptMapper">
-  <resultMap id="BaseResultMap" type="cn.j.sbdemo.sys.entity.SysDept">
+<mapper namespace="cn.j.sbdemo.db2.dao.SysDeptMapper">
+  <resultMap id="BaseResultMap" type="cn.j.sbdemo.db2.entity.SysDept">
     <id column="dept_id" jdbcType="INTEGER" property="deptId" />
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -23,7 +23,7 @@
     delete from sys_dept
     where dept_id = #{deptId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.j.sbdemo.sys.entity.SysDept">
+  <insert id="insert" parameterType="cn.j.sbdemo.db2.entity.SysDept">
     insert into sys_dept (dept_id, parent_id, name, 
       order_num, del_flag, system_id, 
       type)
@@ -31,7 +31,7 @@
       #{orderNum,jdbcType=INTEGER}, #{delFlag,jdbcType=TINYINT}, #{systemId,jdbcType=INTEGER}, 
       #{type,jdbcType=TINYINT})
   </insert>
-  <insert id="insertSelective" parameterType="cn.j.sbdemo.sys.entity.SysDept">
+  <insert id="insertSelective" parameterType="cn.j.sbdemo.db2.entity.SysDept">
     insert into sys_dept
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="deptId != null">
@@ -80,7 +80,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.j.sbdemo.sys.entity.SysDept">
+  <update id="updateByPrimaryKeySelective" parameterType="cn.j.sbdemo.db2.entity.SysDept">
     update sys_dept
     <set>
       <if test="parentId != null">
@@ -104,7 +104,7 @@
     </set>
     where dept_id = #{deptId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.j.sbdemo.sys.entity.SysDept">
+  <update id="updateByPrimaryKey" parameterType="cn.j.sbdemo.db2.entity.SysDept">
     update sys_dept
     set parent_id = #{parentId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},

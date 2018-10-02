@@ -15,4 +15,8 @@
   <sql id="Base_Column_List">
     user_id, username, password, salt, email, mobile, status, create_user_id, create_time
   </sql>
+  <select id="listAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from sys_user
+  </select>
 </mapper>

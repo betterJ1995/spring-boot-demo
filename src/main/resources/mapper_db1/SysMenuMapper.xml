@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.j.sbdemo.sys.dao.SysMenuMapper">
-  <resultMap id="BaseResultMap" type="cn.j.sbdemo.sys.entity.SysMenu">
+<mapper namespace="cn.j.sbdemo.db1.dao.Db1MenuMapper">
+  <resultMap id="BaseResultMap" type="cn.j.sbdemo.db1.entity.SysMenu">
     <id column="menu_id" jdbcType="INTEGER" property="menuId" />
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -26,7 +26,7 @@
     delete from sys_menu
     where menu_id = #{menuId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.j.sbdemo.sys.entity.SysMenu">
+  <insert id="insert" parameterType="cn.j.sbdemo.db1.entity.SysMenu">
     insert into sys_menu (menu_id, parent_id, name, 
       title, url, perms, 
       type, icon, order_num, 
@@ -36,7 +36,7 @@
       #{type,jdbcType=TINYINT}, #{icon,jdbcType=VARCHAR}, #{orderNum,jdbcType=INTEGER}, 
       #{systemId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="cn.j.sbdemo.sys.entity.SysMenu">
+  <insert id="insertSelective" parameterType="cn.j.sbdemo.db1.entity.SysMenu">
     insert into sys_menu
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="menuId != null">
@@ -103,7 +103,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.j.sbdemo.sys.entity.SysMenu">
+  <update id="updateByPrimaryKeySelective" parameterType="cn.j.sbdemo.db1.entity.SysMenu">
     update sys_menu
     <set>
       <if test="parentId != null">
@@ -136,7 +136,7 @@
     </set>
     where menu_id = #{menuId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.j.sbdemo.sys.entity.SysMenu">
+  <update id="updateByPrimaryKey" parameterType="cn.j.sbdemo.db1.entity.SysMenu">
     update sys_menu
     set parent_id = #{parentId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
@@ -148,129 +148,5 @@
       order_num = #{orderNum,jdbcType=INTEGER},
       system_id = #{systemId,jdbcType=INTEGER}
     where menu_id = #{menuId,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="cn.j.sbdemo.sys.entity.SysMenu">
-    <id column="menu_id" jdbcType="BIGINT" property="menuId" />
-    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="perms" jdbcType="VARCHAR" property="perms" />
-    <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="icon" jdbcType="VARCHAR" property="icon" />
-    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    menu_id, parent_id, name, url, perms, type, icon, order_num
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sys_menu
-    where menu_id = #{menuId,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from sys_menu
-    where menu_id = #{menuId,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="cn.j.sbdemo.sys.entity.SysMenu">
-    insert into sys_menu (menu_id, parent_id, name, 
-      url, perms, type, icon, 
-      order_num)
-    values (#{menuId,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{perms,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, 
-      #{orderNum,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="cn.j.sbdemo.sys.entity.SysMenu">
-    insert into sys_menu
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="menuId != null">
-        menu_id,
-      </if>
-      <if test="parentId != null">
-        parent_id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="url != null">
-        url,
-      </if>
-      <if test="perms != null">
-        perms,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="icon != null">
-        icon,
-      </if>
-      <if test="orderNum != null">
-        order_num,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="menuId != null">
-        #{menuId,jdbcType=BIGINT},
-      </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="perms != null">
-        #{perms,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=INTEGER},
-      </if>
-      <if test="icon != null">
-        #{icon,jdbcType=VARCHAR},
-      </if>
-      <if test="orderNum != null">
-        #{orderNum,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.j.sbdemo.sys.entity.SysMenu">
-    update sys_menu
-    <set>
-      <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null">
-        url = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="perms != null">
-        perms = #{perms,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=INTEGER},
-      </if>
-      <if test="icon != null">
-        icon = #{icon,jdbcType=VARCHAR},
-      </if>
-      <if test="orderNum != null">
-        order_num = #{orderNum,jdbcType=INTEGER},
-      </if>
-    </set>
-    where menu_id = #{menuId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.j.sbdemo.sys.entity.SysMenu">
-    update sys_menu
-    set parent_id = #{parentId,jdbcType=BIGINT},
-      name = #{name,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR},
-      perms = #{perms,jdbcType=VARCHAR},
-      type = #{type,jdbcType=INTEGER},
-      icon = #{icon,jdbcType=VARCHAR},
-      order_num = #{orderNum,jdbcType=INTEGER}
-    where menu_id = #{menuId,jdbcType=BIGINT}
   </update>
 </mapper>

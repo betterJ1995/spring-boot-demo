@@ -9,9 +9,9 @@ import java.util.Date;
 /**
  * 命名加上后缀避免与三方库类重名
  * @author J
- * @time 2018/9/27 22:59
- * @description 自定义的日期处理工具类
- * @note 若是需要使用时间相关常量,请使用DateUtils里面的
+ * @Date 2018/9/27 22:59
+ * @Description 自定义的日期处理工具类
+ * @Note 若是需要使用时间相关常量,请使用common.lang3中DateUtils里面的
  **/
 public class DateUtilsJ {
     /**
@@ -158,13 +158,4 @@ public class DateUtilsJ {
         calendar.setTime(date);
         return calendar;
     }
-//    public static void main(String[] args) throws ParseException {
-//        Date date = getDate("2018-09-24");
-//        System.out.println(date);
-//        System.out.println("周一:" + getMonday(date));
-//        System.out.println("周日:" + getSunday(date));
-//        System.out.println("月初:" + getFirstDayOfMonth(date));
-//        System.out.println("次月初:" + getFirstDayOfNextMonth(date));
-//        System.out.println("月末:" + getLastDayOfMonth(date));
-//    }
 }

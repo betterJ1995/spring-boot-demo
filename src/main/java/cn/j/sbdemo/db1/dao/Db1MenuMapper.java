@@ -1,8 +1,8 @@
-package cn.j.sbdemo.sys.dao;
+package cn.j.sbdemo.db1.dao;
 
-import cn.j.sbdemo.sys.entity.SysMenu;
+import cn.j.sbdemo.db1.entity.SysMenu;
 
-public interface SysMenuMapper {
+public interface Db1MenuMapper {
     int deleteByPrimaryKey(Integer menuId);
 
     int insert(SysMenu record);

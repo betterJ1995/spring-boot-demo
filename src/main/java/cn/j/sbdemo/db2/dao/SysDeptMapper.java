@@ -1,6 +1,7 @@
-package cn.j.sbdemo.sys.dao;
+package cn.j.sbdemo.db2.dao;
 
-import cn.j.sbdemo.sys.entity.SysDept;
+
+import cn.j.sbdemo.db2.entity.SysDept;
 
 public interface SysDeptMapper {
     int deleteByPrimaryKey(Integer deptId);
