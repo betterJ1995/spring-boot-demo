@@ -26,8 +26,6 @@ import javax.sql.DataSource;
 @MapperScan(basePackages = "cn.j.sbdemo.sys", sqlSessionTemplateRef = "primarySqlSessionTemplate")
 public class PrimaryMysqlConfig {
 
-//    @Value("${primary.mapper-locations}")
-//    private String mapperLocations;
 
     @Bean(name = "primaryDataSource")
     @Primary // 定义主数据源
@@ -58,7 +56,7 @@ public class PrimaryMysqlConfig {
 
     @Bean(name = "primarySqlSessionTemplate")
     public SqlSessionTemplate primarySqlSessionTemplate(
-            @Qualifier("primarySqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
+            @Qualifier("primarySqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 }
