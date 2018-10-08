@@ -28,11 +28,12 @@
     </appender>
     <!--打印sql 设置位debug-->
     <logger name="cn.j.sbdemo" level="debug"/>
-    <logger name="org.springframework.web" level="info"/>
-    <logger name="org.apache" level="info"/>
     <logger name="org.springframework" level="debug"/>
     <logger name="org.mybatis" level="debug"/>
+    <logger name="com.baomidou.mybatisplus" level="debug"/>
 
+    <logger name="org.springframework.web" level="info"/>
+    <logger name="org.apache" level="info"/>
 
     <root level="info">
         <appender-ref ref="Console"/>
