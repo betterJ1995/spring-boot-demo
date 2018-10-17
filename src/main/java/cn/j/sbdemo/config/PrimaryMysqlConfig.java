@@ -1,11 +1,9 @@
 package cn.j.sbdemo.config;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
-import com.baomidou.mybatisplus.core.config.GlobalConfig;
-import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +12,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import tk.mybatis.spring.annotation.MapperScan;
 
 import javax.sql.DataSource;
 
@@ -23,7 +22,8 @@ import javax.sql.DataSource;
  * @description 主数据源配置
  **/
 @Configuration
-@MapperScan(basePackages = "cn.j.sbdemo.sys", sqlSessionTemplateRef = "primarySqlSessionTemplate")
+// 注意 这里的MapperScan 是tk.mapper的 不是mybatis的
+@MapperScan(basePackages = "cn.j.sbdemo.sys", sqlSessionTemplateRef = "primarySST")
 public class PrimaryMysqlConfig {
 
 
@@ -36,29 +36,27 @@ public class PrimaryMysqlConfig {
         return DruidDataSourceBuilder.create().build();
     }
 
-    @Bean(name = "primarySqlSessionFactory")
+    @Bean(name = "primarySSF")
     @Primary
-    public SqlSessionFactory primarySqlSessionFactory(@Qualifier("primaryDataSource") DataSource dataSource,
-                                                      @Qualifier("defaultGlobalConfig") GlobalConfig globalConfig)
+    public SqlSessionFactory primarySqlSessionFactory(@Qualifier("primaryDataSource") DataSource dataSource)
             throws Exception {
-        MybatisSqlSessionFactoryBean bean = new MybatisSqlSessionFactoryBean();
+        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-        bean.setGlobalConfig(globalConfig);
         //定义dao xml文件扫描地址
         bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper-demo-db/*.xml"));
         return bean.getObject();
     }
 
     //配置声明式事务管理器
-    @Bean(name = "primaryTransactionManager")
+    @Bean(name = "primaryTM")
     @Primary
     public PlatformTransactionManager primaryTransactionManager(@Qualifier("primaryDataSource") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 
-    @Bean(name = "primarySqlSessionTemplate")
+    @Bean(name = "primarySST")
     public SqlSessionTemplate primarySqlSessionTemplate(
-            @Qualifier("primarySqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
+            @Qualifier("primarySSF") SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 }

@@ -1,11 +1,11 @@
 package cn.j.sbdemo.sys.dao;
 
-import cn.j.sbdemo.sys.entity.SysUser;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import cn.j.sbdemo.sys.entity.SysUserDo;
+import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
-public interface SysUserMapper extends BaseMapper<SysUser>{
+public interface SysUserMapper extends Mapper<SysUserDo> {
 
-    List<SysUser> listAll();
+    List<SysUserDo> listAll();
 }

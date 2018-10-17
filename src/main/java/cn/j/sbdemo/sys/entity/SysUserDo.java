@@ -1,15 +1,17 @@
 package cn.j.sbdemo.sys.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.ToString;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Data
 @ToString
-public class SysUser {
-    @TableId
+@Table(name = "sys_user")
+public class SysUserDo {
+    @Id
     private Long userId;
 
     private String username;

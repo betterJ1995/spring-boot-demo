@@ -5,6 +5,8 @@ server:
     uri-encoding: UTF-8
 
 spring:
+  profiles:
+    active: dev
   # 时间格式化配置
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -15,7 +17,3 @@ spring:
       force: true
       charset: UTF-8
       enabled: true
-  profiles:
-    active: dev
-
-

@@ -1,11 +1,9 @@
 package cn.j.sbdemo.config;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
-import com.baomidou.mybatisplus.core.config.GlobalConfig;
-import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import tk.mybatis.spring.annotation.MapperScan;
 
 import javax.sql.DataSource;
 
@@ -33,12 +32,10 @@ public class Slave2MysqlConfig {
     }
 
     @Bean(name = "slave2SSF")
-    public SqlSessionFactory slave2SqlSessionFactory(@Qualifier("slave2DataSource") DataSource dataSource,
-                                                     @Qualifier("defaultGlobalConfig") GlobalConfig globalConfig)
+    public SqlSessionFactory slave2SqlSessionFactory(@Qualifier("slave2DataSource") DataSource dataSource)
             throws Exception {
-        MybatisSqlSessionFactoryBean bean = new MybatisSqlSessionFactoryBean();
+        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-        bean.setGlobalConfig(globalConfig);
 
         //定义dao xml文件扫描地址
         bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper_db2/*.xml"));
