@@ -1,4 +1,4 @@
-package cn.j.sbdemo.sys.api;
+package cn.j.sbdemo.sys.api1;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2018/9/27 8:31
  **/
 @RestController
-@RequestMapping("/demo")
+@RequestMapping("/demo1")
 public class DemoApi {
 
     @PostMapping("/post")

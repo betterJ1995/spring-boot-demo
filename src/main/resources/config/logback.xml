@@ -2,14 +2,14 @@
 <!--开启自动刷新 刷新间隔 10 s-->
 <configuration scan="true" scanPeriod="10 seconds">
     <!--文件日志-->
-    <appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--文件路径 个人电脑下会自动创建路径及文件-->
         <file>D:/logs/today.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>D:/logs/log-%d{yyyy-MM-dd}.log</fileNamePattern>
             <!--30 天-->
             <maxHistory>30</maxHistory>
-            <!--总文件最大3GB-->
+            <!--总文件最大5GB-->
             <totalSizeCap>5GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
@@ -19,8 +19,8 @@
         <prudent>false</prudent>
     </appender>
 
-    <!-- Console 彩色输出设置 -->
-    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- CONSOLE 彩色输出设置 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <withJansi>true</withJansi>
         <encoder>
             <pattern>%thread | %date{MM-dd HH:mm:ss} | %highlight(%-5level) | %green(%logger) | %msg%n</pattern>
@@ -33,10 +33,15 @@
     <logger name="com.baomidou.mybatisplus" level="debug"/>
 
     <logger name="org.springframework.web" level="info"/>
+    <logger name="org.springframework.beans.factory" level="info"/>
+    <logger name="org.springframework.boot.web" level="info"/>
+    <logger name="org.springframework.core.env" level="info"/>
+    <logger name="org.springframework.aop.framework" level="info"/>
+    <logger name="org.springframework.context.annotation" level="info"/>
     <logger name="org.apache" level="info"/>
 
     <root level="info">
-        <appender-ref ref="Console"/>
-        <appender-ref ref="File"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
     </root>
 </configuration>

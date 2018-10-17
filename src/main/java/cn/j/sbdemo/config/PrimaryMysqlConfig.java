@@ -1,4 +1,4 @@
-package cn.j.sbdemo.core.config;
+package cn.j.sbdemo.config;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
@@ -31,13 +31,15 @@ public class PrimaryMysqlConfig {
     @Primary // 定义主数据源
     @ConfigurationProperties(prefix = "primary.datasource")
     public DataSource primaryDataSource() {
-        //如是用了第三方的连接池 直接new 一个对应的对象返回即可
+        //如是用了第三方的连接池 可以直接new 一个对应的对象返回
+        //也可以调用对应的builder
         return DruidDataSourceBuilder.create().build();
     }
 
     @Bean(name = "primarySqlSessionFactory")
     @Primary
-    public SqlSessionFactory primarySqlSessionFactory(@Qualifier("primaryDataSource") DataSource dataSource, @Qualifier("defaultGlobalConfig") GlobalConfig globalConfig)
+    public SqlSessionFactory primarySqlSessionFactory(@Qualifier("primaryDataSource") DataSource dataSource,
+                                                      @Qualifier("defaultGlobalConfig") GlobalConfig globalConfig)
             throws Exception {
         MybatisSqlSessionFactoryBean bean = new MybatisSqlSessionFactoryBean();
         bean.setDataSource(dataSource);

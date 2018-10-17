@@ -25,6 +25,8 @@
         <mybatis.plus.version>3.0.3</mybatis.plus.version>
         <commons.lang3.version>3.7</commons.lang3.version>
         <swagger.version>2.9.2</swagger.version>
+        <swagger.bootstrap.ui.version>1.8.5</swagger.bootstrap.ui.version>
+        <fastjson.version>1.2.51</fastjson.version>
     </properties>
 
     <dependencies>
@@ -47,18 +49,22 @@
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.1.10</version>
         </dependency>
+
+        <!--mysql 驱动-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <!--自动生成get set方法-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
-        <!--mybatis增强包-->
+        <!--mybatis增强包 会引入mybatis的依赖 则不需要另外加mybatis的依赖-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -71,18 +77,41 @@
             <artifactId>springfox-swagger2</artifactId>
             <version>${swagger.version}</version>
         </dependency>
-        <dependency>
+        <!--swagger 默认的接口文档样式-->
+<!--        <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${swagger.version}</version>
+        </dependency>-->
+
+        <!-- swagger 接口文档ui样式 -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>swagger-bootstrap-ui</artifactId>
+            <version>1.8.5</version>
         </dependency>
 
-        <!-- 常用的基础工具类包 -->
+
+        <!-- ====================== -->
+        <!-- ====================== -->
+        <!-- ====================== -->
+        <!-- 常用的基础工具类包 begin -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons.lang3.version}</version>
         </dependency>
+        <!-- JSON  -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+
+        <!-- 常用的基础工具类包 end -->
+        <!-- ====================== -->
+        <!-- ====================== -->
+        <!-- ====================== -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

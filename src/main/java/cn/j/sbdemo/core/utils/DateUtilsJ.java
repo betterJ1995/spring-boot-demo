@@ -8,12 +8,21 @@ import java.util.Date;
 
 /**
  * 命名加上后缀避免与三方库类重名
+ *
  * @author J
  * @Date 2018/9/27 22:59
  * @Description 自定义的日期处理工具类
- * @Note 若是需要使用时间相关常量,请使用common.lang3中DateUtils里面的
+ * @Note 若是需要使用时间相关常量, 请使用common.lang3中DateUtils里面的
  **/
 public class DateUtilsJ {
+
+    /**
+     * 日期分隔符 - 或者 /
+     */
+    public static final String DATE_SEPARATOR1 = "-";
+    public static final String DATE_SEPARATOR2 = "/";
+
+
     /**
      * 时间格式
      */
@@ -37,7 +46,7 @@ public class DateUtilsJ {
      * @param date yyyy-MM-dd
      */
     public static Date getDate(String date) throws ParseException {
-        return getDate(date, "-");
+        return getDate(date, DATE_SEPARATOR1);
     }
 
     /**
@@ -47,9 +56,9 @@ public class DateUtilsJ {
      */
     public static Date getDate(String date, String split) throws ParseException {
         split = split.trim();
-        if ("-".equals(split)) {
+        if (DATE_SEPARATOR1.equals(split)) {
             return DATE_FORMAT.parse(date);
-        } else if ("/".equals(split)) {
+        } else if (DATE_SEPARATOR2.equals(split)) {
             return DATE_FORMAT1.parse(date);
         } else {
             throw new IllegalArgumentException("不合法的日期分隔符");
@@ -62,7 +71,7 @@ public class DateUtilsJ {
      * @param datetime yyyy-MM-dd hh:mm:ss
      */
     public static Date getDateTime(String datetime) throws ParseException {
-        return getDateTime(datetime, "-");
+        return getDateTime(datetime, DATE_SEPARATOR1);
     }
 
     /**
@@ -72,9 +81,9 @@ public class DateUtilsJ {
      */
     public static Date getDateTime(String datetime, String split) throws ParseException {
         split = split.trim();
-        if ("-".equals(split)) {
+        if (DATE_SEPARATOR1.equals(split)) {
             return DATETIME_FORMAT.parse(datetime);
-        } else if ("/".equals(split)) {
+        } else if (DATE_SEPARATOR2.equals(split)) {
             return DATETIME_FORMAT1.parse(datetime);
         } else {
             throw new IllegalArgumentException("不合法的日期分隔符");
@@ -146,15 +155,8 @@ public class DateUtilsJ {
     /**
      * 返回Calendar
      */
-    public static Calendar getCalendar() {
-        return Calendar.getInstance();
-    }
-
-    /**
-     * 返回Calendar
-     */
     public static Calendar getCalendar(Date date) {
-        Calendar calendar = getCalendar();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return calendar;
     }

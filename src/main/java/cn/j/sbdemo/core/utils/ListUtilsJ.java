@@ -1,7 +1,5 @@
 package cn.j.sbdemo.core.utils;
 
-import org.springframework.dao.DuplicateKeyException;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -19,11 +17,11 @@ public class ListUtilsJ {
      * @param list
      * @param keyName   作为map的key的字段名
      * @param valueName 作为map的value的字段名
-     *                  @descrip
      * @return
      * @throws NoSuchMethodException
      * @throws InvocationTargetException
      * @throws IllegalAccessException
+     * @descrip
      */
     @SuppressWarnings("unchecked")
     public static <K, V, T> Map<K, V> toMap(List<T> list, String keyName, String valueName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
@@ -32,7 +30,7 @@ public class ListUtilsJ {
             if (item instanceof Map) {
                 K key = (K) ((Map<String, Object>) item).get(keyName);
                 if (result.containsKey(key)) {
-                    throw new DuplicateKeyException("key 不唯一");
+                    throw new RuntimeException("key 不唯一");
                 }
                 result.put(
                         key,
@@ -43,7 +41,7 @@ public class ListUtilsJ {
 
                 K key = (K) getKey.invoke(getKey);
                 if (result.containsKey(key)) {
-                    throw new DuplicateKeyException("key 不唯一");
+                    throw new RuntimeException("key 不唯一");
                 }
 
                 Method getValue = item.getClass().getMethod("get" + valueName.substring(0, 1).toUpperCase() + valueName);
