@@ -1,8 +1,9 @@
-package cn.j.sbdemo.config;
+package cn.j.sbdemo.core.config;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
@@ -19,7 +20,7 @@ import javax.sql.DataSource;
 /**
  * @author J
  * @time 2018/10/1 14:28
- * @description 从数据源配置
+ * @description 主数据源配置
  **/
 @Configuration
 @MapperScan(basePackages = "cn.j.sbdemo.db1", sqlSessionTemplateRef = "slave1SST")
@@ -33,8 +34,9 @@ public class Slave1MysqlConfig {
     }
 
     @Bean(name = "slave1SSF")
-    public SqlSessionFactory slave1SqlSessionFactory(@Qualifier("slave1DataSource") DataSource dataSource,
-                                                     @Qualifier("defaultGlobalConfig") GlobalConfig globalConfig)
+    public SqlSessionFactory slave1SqlSessionFactory(@Qualifier("primaryDataSource") DataSource dataSource,
+                                                     @Qualifier("defaultGlobalConfig") GlobalConfig globalConfig,
+                                                     @Qualifier("defaultPlugins") Interceptor[] interceptors)
             throws Exception {
         MybatisSqlSessionFactoryBean bean = new MybatisSqlSessionFactoryBean();
         bean.setDataSource(dataSource);
@@ -42,6 +44,8 @@ public class Slave1MysqlConfig {
 
         //定义dao xml文件扫描地址
         bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper_db1/*.xml"));
+        //配置插件
+        bean.setPlugins(interceptors);
         return bean.getObject();
     }
 
