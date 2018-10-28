@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Date 2018/9/27 8:31
  **/
 @SpringBootApplication
+@tk.mybatis.spring.annotation.MapperScan(basePackages = "cn.j.sbdemo.sys")
 public class SbDemoApplication {
 
     public static void main(String[] args) {

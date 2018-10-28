@@ -17,3 +17,5 @@ spring:
       force: true
       charset: UTF-8
       enabled: true
+mybatis:
+  mapper-locations: classpath:mapper-demo-db/*.xml

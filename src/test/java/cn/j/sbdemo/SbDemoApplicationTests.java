@@ -21,7 +21,7 @@ public class SbDemoApplicationTests {
         System.out.println("===========");
         System.out.println("===========");
         System.out.println("===========");
-        System.out.println(sysUserMapper.listAll());
+        System.out.println(sysUserMapper.selectAll());
     }
 
 }

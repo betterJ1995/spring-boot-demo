@@ -5,12 +5,6 @@ spring:
     host: 127.0.0.1
     port: 6379
     password:
-
-logging:
-  config: classpath:config/logback.xml
-
-# 数据源配置
-primary:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/demo_db?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
@@ -18,19 +12,6 @@ primary:
     username: root
     password: 1234
     sql-script-encoding: utf-8
-slave1:
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/db1?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
-    type: com.alibaba.druid.pool.DruidDataSource
-    username: root
-    password: 1234
-    sql-script-encoding: utf-8
-slave2:
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/db2?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
-    type: com.alibaba.druid.pool.DruidDataSource
-    username: root
-    password: 1234
-    sql-script-encoding: utf-8
+
+logging:
+  config: classpath:config/logback.xml
