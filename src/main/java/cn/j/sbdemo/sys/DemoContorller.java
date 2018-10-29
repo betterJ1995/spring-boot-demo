@@ -10,6 +10,7 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HTTP;
@@ -31,10 +32,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/upload")
 public class DemoContorller {
-    private String code = "24.9c71484a8ed9cc048da1ac029a2b4a57.7200.1540552821.282335-10631502";
+    private String code = "24.e4dc67461831f064c34f766075057f92.7200.1540783162.282335-10631502";
 
     @PostMapping("/img")
-    public String img(@RequestPart("fileByte") byte[] fileByte, MultipartFile file, Map<String, Object> params, HttpServletRequest request) throws IOException {
+    public String img(MultipartFile file, Map<String, Object> params, HttpServletRequest request) throws IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
         String url = "https://openapi.baidu.com/rest/2.0/cambrian/media/uploadimg?access_token=" + code;
@@ -42,19 +43,13 @@ public class DemoContorller {
         System.out.println(request.getContentType());
         String result = "";
         try {
-//            String fileName = file.getOriginalFilename();
             HttpPost httpPost = new HttpPost(url);
 
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-//            builder.setCharset(Charset.forName("UTF-8"));
-//            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-//            // 文件流
-//            builder.addBinaryBody("media", file.getInputStream(), ContentType.MULTIPART_FORM_DATA, fileName);
-            // 类似浏览器表单提交，对应input的name和value
-//            builder.addTextBody("media", fileName);
 
-//            builder.addTextBody("type", "image");
-            builder.addPart("media", new ByteArrayBody(fileByte, "media"));
+            //设置成该模式中文文件名就不会出现乱码
+            builder.setMode(HttpMultipartMode.RFC6532);
+            builder.addBinaryBody("media", file.getBytes(), ContentType.MULTIPART_FORM_DATA, file.getOriginalFilename());
 
             HttpEntity entity = builder.build();
             httpPost.setEntity(entity);
