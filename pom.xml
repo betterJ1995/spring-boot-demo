@@ -80,23 +80,28 @@
 
 
         <!-- api接口文档 -->
-        <dependency>
+<!--        <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>${swagger.version}</version>
         </dependency>
-        <!--swagger 默认的接口文档样式-->
-        <!--        <dependency>
-                    <groupId>io.springfox</groupId>
-                    <artifactId>springfox-swagger-ui</artifactId>
-                    <version>${swagger.version}</version>
-                </dependency>-->
+        &lt;!&ndash;swagger 默认的接口文档样式&ndash;&gt;
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
 
-        <!-- swagger 接口文档ui样式 -->
+        &lt;!&ndash; swagger 接口文档ui样式 &ndash;&gt;
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>swagger-bootstrap-ui</artifactId>
             <version>1.8.5</version>
+        </dependency>-->
+        <dependency>
+            <groupId>cn.j</groupId>
+            <artifactId>swagger-spring-boot-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
 
