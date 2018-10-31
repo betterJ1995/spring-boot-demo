@@ -60,8 +60,11 @@ public class HttpUtils {
     }
 
     public static String postForm(String url, List<NameValuePair> parameters) throws IOException {
+        EntityBuilder entityBuilder = EntityBuilder.create();
+        entityBuilder.setParameters(parameters);
+        entityBuilder.setContentType(ContentType.create("application/x-www-form-urlencoded","UTF-8"));
         return Request.Post(url)
-                .bodyForm(parameters)
+                .body(entityBuilder.build())
                 .execute()
                 .returnContent()
                 .asString();

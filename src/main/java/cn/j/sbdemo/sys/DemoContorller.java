@@ -1,6 +1,8 @@
 package cn.j.sbdemo.sys;
 
 import cn.j.sbdemo.common.HttpUtils;
+import cn.j.sbdemo.xzh.consts.XzhConst;
+import cn.j.sbdemo.xzh.http.*;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -26,10 +28,13 @@ import sun.misc.BASE64Encoder;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -126,6 +131,7 @@ public class DemoContorller {
 
     /**
      * 代开熊掌号
+     *
      * @param file1
      * @param file2
      * @param file3
@@ -134,52 +140,94 @@ public class DemoContorller {
      * @throws IOException
      */
     @PostMapping("/post")
-    public String getDemo(MultipartFile file1, MultipartFile file2, MultipartFile file3, MultipartFile file4) throws IOException {
-        String url = "https://openapi.baidu.com/rest/2.0/cambrian/tp/create_lice_xzh?tp_access_token=42.c4beb9fb35f53eb7d82da6330dfb2720.7200.1540972845.BgTgWsYVIcowFwtLLWUp-36GetTy5eq50cyFscj";
+    public String getDemo(MultipartFile file1, MultipartFile file2, MultipartFile file3, MultipartFile file4) throws IOException, URISyntaxException {
+        String url = "https://openapi.baidu.com/rest/2.0/cambrian/tp/create_lice_xzh";
 
-        BASE64Encoder encoder = new BASE64Encoder();
-
-        String img1 = HttpUtils.base64Img(file1.getContentType(),file1.getBytes());
-        String img2 = HttpUtils.base64Img(file2.getContentType(),file2.getBytes());
-        String img3 = HttpUtils.base64Img(file3.getContentType(),file3.getBytes());
-        String img4 = HttpUtils.base64Img(file4.getContentType(),file4.getBytes());
-
-        List<NameValuePair> pairList = new ArrayList<>();
-        //本系统唯一id
-        pairList.add(new BasicNameValuePair("third_id", "51pla1540963164"));
-        //类型
-        pairList.add(new BasicNameValuePair("type", "3"));
-        // 熊掌号名称
-        pairList.add(new BasicNameValuePair("name", "武汉博锐自动化"));
-        //签名
-        pairList.add(new BasicNameValuePair("wish", "灌装机、包装机械生产线的研发制造"));
-        //领域行业
-        pairList.add(new BasicNameValuePair("domain", "43"));
-        //位置 省市
-        pairList.add(new BasicNameValuePair("location", "湖北省-武汉"));
-        //组织名称/政府名称/企业名称：与营业执照或组织机构代码证保持一致
-        pairList.add(new BasicNameValuePair("org_name", "武汉东泰博锐自动化设备有限公司"));
-        //组织机构代码(media)/营业执照注册号(company)
-        pairList.add(new BasicNameValuePair("org_code", "91420100333478686X"));
-        //运营者姓名
-        pairList.add(new BasicNameValuePair("owner_name", "李凯"));
-        //运营者身份证
-        pairList.add(new BasicNameValuePair("owner_id", "412323197712010014"));
-        //运营者手机号
-        pairList.add(new BasicNameValuePair("pass_phone", "18663752606"));
-        //头像
-        pairList.add(new BasicNameValuePair("avatar", img1));
-        //营业执照影印件(company)/组织机构代码证影印件
-        pairList.add(new BasicNameValuePair("org_license", img2));
-        //运营者身份证复印件
-        pairList.add(new BasicNameValuePair("owner_photo", img3));
-        //授权截图
-        pairList.add(new BasicNameValuePair("auth_img", img4));
-
+        String url0 = "https://openapi.baidu.com/rest/2.0/cambrian/tp/create_lice_xzh?tp_access_token=42.c151a8b3f67ea711e0ae0e7ae5a88a3d.7200.1540983639.NkBhmL3mDaGN8CG_m22n-36GetTy5eq50cyFscj";
         String result = "";
-        result = HttpUtils.postForm(url, pairList);
+
+        String img1 = HttpUtils.base64Img(file1.getContentType(), file1.getBytes());
+        String img2 = HttpUtils.base64Img(file2.getContentType(), file2.getBytes());
+        String img3 = HttpUtils.base64Img(file3.getContentType(), file3.getBytes());
+        String img4 = HttpUtils.base64Img(file4.getContentType(), file4.getBytes());
+
+//        List<NameValuePair> pairList = new ArrayList<>();
+//        //本系统唯一id
+//        pairList.add(new BasicNameValuePair("third_id", "test201810311706"));
+//        //类型
+//        pairList.add(new BasicNameValuePair("type", "3"));
+//        // 熊掌号名称
+//        pairList.add(new BasicNameValuePair("name", "软科技"));
+//        //签名
+//        pairList.add(new BasicNameValuePair("wish", "软科技、专注软件研发制造啊"));
+//        //领域行业
+//        pairList.add(new BasicNameValuePair("domain", "1"));
+//        //位置 省市
+//        pairList.add(new BasicNameValuePair("location", "湖北省-武汉"));
+//        //组织名称/政府名称/企业名称：与营业执照或组织机构代码证保持一致
+//        pairList.add(new BasicNameValuePair("org_name", "软科技有限公司"));
+//        //组织机构代码(media)/营业执照注册号(company)
+//        pairList.add(new BasicNameValuePair("org_code", "13622"));
+//        //运营者姓名
+//        pairList.add(new BasicNameValuePair("owner_name", "郭金超"));
+//        //运营者身份证
+//        pairList.add(new BasicNameValuePair("owner_id", "410329199406199598"));
+//        //运营者手机号
+//        pairList.add(new BasicNameValuePair("pass_phone", "15945892369"));
+//        //头像
+//        pairList.add(new BasicNameValuePair("avatar", img1));
+//        //营业执照影印件(company)/组织机构代码证影印件
+//        pairList.add(new BasicNameValuePair("org_license", img2));
+//        //运营者身份证复印件
+//        pairList.add(new BasicNameValuePair("owner_photo", img3));
+//        //授权截图
+//        pairList.add(new BasicNameValuePair("auth_img", img4));
+//        result = HttpUtils.postForm(url0, pairList);
+//        System.out.println(result);
+
+        HashMap<String, Object> param = new HashMap<>();
+        param.put("third_id", "test201810311706");
+        param.put("type", "3");
+        param.put("name", "软科技");
+        param.put("wish", "软科技、专注软件研发制造啊");
+        param.put("domain", "1");
+        param.put("location", "湖北省-武汉");
+        param.put("org_name", "软科技有限公司");
+        param.put("org_code", "13622");
+        param.put("owner_name", "郭金超");
+        param.put("owner_id", "410329199406199598");
+        param.put("pass_phone", "15945892369");
+        param.put("avatar", img1);
+        param.put("org_license", img2);
+        param.put("owner_photo", img3);
+        param.put("auth_img", img4);
+
+        HashMap<String, String> pa = new HashMap<>();
+        pa.put("tp_access_token", "42.c151a8b3f67ea711e0ae0e7ae5a88a3d.7200.1540983639.NkBhmL3mDaGN8CG_m22n-36GetTy5eq50cyFscj");
+
+        XzhRequest xzhRequest = new XzhRequest();
+        xzhRequest.setFormParams(param);
+        xzhRequest.setBodyFormat(BodyFormatEnum.FORM_KV);
+        xzhRequest.setHttpMethod(HttpMethodEnum.POST);
+        xzhRequest.setUri(new URI(url));
+        xzhRequest.setParams(pa);
+        xzhRequest.setContentEncoding("utf-8");
+
+        Integer conTimeoutMillis = XzhConst.CONNECTION_TIMEOUT_MILLS;
+        Integer skTimeoutMillis = XzhConst.SOCKET_TIMEOUT_MILLIS;
+        ConnectConfig clientConnectConfig = new ConnectConfig(conTimeoutMillis, skTimeoutMillis);
+        xzhRequest.setConfig(clientConnectConfig);
+
+
+        HashMap<String, String> headerMap = new HashMap<>();
+        headerMap.put("connection", "Keep-Alive");
+        xzhRequest.setHeaders(headerMap);
+
+
+        XzhResponse xzhResponse = XzhHttpClient.post(xzhRequest);
+        result = xzhResponse.getBody();
         System.out.println(result);
-        System.out.println(URLDecoder.decode(result, "UTF-8"));
+
         return result;
     }
 }
