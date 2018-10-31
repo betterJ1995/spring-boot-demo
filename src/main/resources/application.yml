@@ -21,7 +21,9 @@ mybatis:
   mapper-locations: classpath:mapper-demo-db/*.xml
 swagger:
   doc:
-    title: J的接口文档
-    description: J的starter创建的
-    version: 1.2
-    base-package: cn.j
+    docket:
+      aa:
+        title: J的接口文档
+        description: J的starter创建的
+        version: 1.2
+        base-package: cn.j
