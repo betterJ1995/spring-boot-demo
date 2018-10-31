@@ -1,5 +1,6 @@
 package cn.j.sbdemo;
 
+import cn.j.EnableSwaggerJ;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  **/
 @SpringBootApplication
 @tk.mybatis.spring.annotation.MapperScan(basePackages = "cn.j.sbdemo.sys")
+@EnableSwaggerJ
 public class SbDemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(SbDemoApplication.class, args);
