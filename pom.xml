@@ -80,28 +80,10 @@
 
         <!--swagger 接口文档-->
         <dependency>
-            <groupId>cn.j</groupId>
+            <groupId>com.github.tripleJ1995</groupId>
             <artifactId>swagger-spring-boot-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-
-        <!-- api接口文档 -->
-<!--        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${swagger.version}</version>
-        </dependency>
-        &lt;!&ndash; swagger 接口文档ui样式 &ndash;&gt;
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>swagger-bootstrap-ui</artifactId>
-            <version>${swagger.bootstrap.ui.version}</version>
-        </dependency>-->
 
 
         <!-- ====================== -->
