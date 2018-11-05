@@ -169,9 +169,9 @@ public class DemoContorller {
 //        //组织机构代码(media)/营业执照注册号(company)
 //        pairList.add(new BasicNameValuePair("org_code", "13622"));
 //        //运营者姓名
-//        pairList.add(new BasicNameValuePair("owner_name", "郭金超"));
+//        pairList.add(new BasicNameValuePair("owner_name", "542"));
 //        //运营者身份证
-//        pairList.add(new BasicNameValuePair("owner_id", "410329199406199598"));
+//        pairList.add(new BasicNameValuePair("owner_id", "2542"));
 //        //运营者手机号
 //        pairList.add(new BasicNameValuePair("pass_phone", "15945892369"));
 //        //头像
@@ -186,7 +186,7 @@ public class DemoContorller {
 //        System.out.println(result);
 
         HashMap<String, Object> param = new HashMap<>();
-        param.put("third_id", "test201810311706");
+        param.put("third_id", "test1101");
         param.put("type", "3");
         param.put("name", "软科技");
         param.put("wish", "软科技、专注软件研发制造啊");
@@ -194,16 +194,16 @@ public class DemoContorller {
         param.put("location", "湖北省-武汉");
         param.put("org_name", "软科技有限公司");
         param.put("org_code", "13622");
-        param.put("owner_name", "郭金超");
-        param.put("owner_id", "410329199406199598");
-        param.put("pass_phone", "15945892369");
+        param.put("owner_name", "高天成");
+        param.put("owner_id", "1222");
+        param.put("pass_phone", "45425");
         param.put("avatar", img1);
         param.put("org_license", img2);
         param.put("owner_photo", img3);
         param.put("auth_img", img4);
 
         HashMap<String, String> pa = new HashMap<>();
-        pa.put("tp_access_token", "42.c151a8b3f67ea711e0ae0e7ae5a88a3d.7200.1540983639.NkBhmL3mDaGN8CG_m22n-36GetTy5eq50cyFscj");
+        pa.put("tp_access_token", "");
 
         XzhRequest xzhRequest = new XzhRequest();
         xzhRequest.setFormParams(param);
@@ -217,7 +217,6 @@ public class DemoContorller {
         Integer skTimeoutMillis = XzhConst.SOCKET_TIMEOUT_MILLIS;
         ConnectConfig clientConnectConfig = new ConnectConfig(conTimeoutMillis, skTimeoutMillis);
         xzhRequest.setConfig(clientConnectConfig);
-
 
         HashMap<String, String> headerMap = new HashMap<>();
         headerMap.put("connection", "Keep-Alive");
