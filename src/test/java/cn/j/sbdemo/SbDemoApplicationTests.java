@@ -1,5 +1,6 @@
 package cn.j.sbdemo;
 
+import cn.j.sbdemo.sys.TestService;
 import cn.j.sbdemo.sys.dao.SysUserMapper;
 import cn.j.sbdemo.sys.entity.SysUserDo;
 import org.apache.ibatis.session.RowBounds;
@@ -16,6 +17,8 @@ public class SbDemoApplicationTests {
 
     @Autowired
     private SysUserMapper sysUserMapper;
+    @Autowired
+    private TestService testService;
 
     @Test
     public void contextLoads() {
@@ -25,6 +28,12 @@ public class SbDemoApplicationTests {
                 new RowBounds(10, 20)
         );
         System.out.println(sysUserMapper.selectAll());
+    }
+
+    @Test
+    public void testSessionClose() {
+        testService.testSession("1121测试");
+        System.out.println("ok");
     }
 
 }
