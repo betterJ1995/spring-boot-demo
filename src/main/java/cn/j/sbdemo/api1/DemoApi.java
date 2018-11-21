@@ -1,4 +1,4 @@
-package cn.j.sbdemo.sys.api1;
+package cn.j.sbdemo.api1;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
