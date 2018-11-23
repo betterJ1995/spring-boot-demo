@@ -16,14 +16,14 @@ public class DemoApi {
 
     @PostMapping("/post")
     @ApiOperation("post demo 接口")
-    public int postDemo(){
+    public int postDemo() {
         System.out.println(1);
         return 1;
     }
 
     @PostMapping("/get")
     @ApiOperation("get demo 接口")
-    public int getDemo(){
+    public int getDemo() {
         System.out.println(1);
         return 1;
     }

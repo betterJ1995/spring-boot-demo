@@ -17,9 +17,11 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @Author J
- * @Date 2018/10/29 14:50
- * @Description
+ * http请求工具类
+ * 基于 fluent-hc
+ * created on 2018/11/23.
+ *
+ * @author J
  **/
 public class HttpUtils {
 
@@ -62,7 +64,7 @@ public class HttpUtils {
     public static String postForm(String url, List<NameValuePair> parameters) throws IOException {
         EntityBuilder entityBuilder = EntityBuilder.create();
         entityBuilder.setParameters(parameters);
-        entityBuilder.setContentType(ContentType.create("application/x-www-form-urlencoded","UTF-8"));
+        entityBuilder.setContentType(ContentType.create("application/x-www-form-urlencoded", "UTF-8"));
         return Request.Post(url)
                 .body(entityBuilder.build())
                 .execute()

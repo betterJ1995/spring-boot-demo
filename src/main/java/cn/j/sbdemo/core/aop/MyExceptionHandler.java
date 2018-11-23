@@ -1,6 +1,6 @@
 package cn.j.sbdemo.core.aop;
 
-import cn.j.sbdemo.common.R;
+import cn.j.sbdemo.common.RrMap;
 import cn.j.sbdemo.core.exception.MyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ public class MyExceptionHandler {
      * 处理自定义异常
      */
     @ExceptionHandler(MyException.class)
-    public R handleMyException(MyException e) {
-        return R.error(e.getMessage());
+    public RrMap handleMyException(MyException e) {
+        return RrMap.error(e.getMessage());
     }
 }
