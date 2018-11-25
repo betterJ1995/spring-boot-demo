@@ -1,6 +1,8 @@
 package cn.j.sbdemo.api1;
 
+import cn.j.sbdemo.common.PageUtils;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,13 +19,18 @@ public class DemoApi {
     @PostMapping("/post")
     @ApiOperation("post demo 接口")
     public int postDemo() {
-        System.out.println(1);
+        Integer pn = PageUtils.getPageNo();
+        System.out.println(pn);
         return 1;
     }
 
-    @PostMapping("/get")
+    @GetMapping("/get")
     @ApiOperation("get demo 接口")
     public int getDemo() {
+        Integer pn = PageUtils.getPageNo();
+        System.out.println(pn);
+        System.out.println(PageUtils.getOrderType());
+        System.out.println(PageUtils.getIsASC());
         System.out.println(1);
         return 1;
     }

@@ -6,11 +6,9 @@ import java.util.HashMap;
 /**
  * result map
  * <p>
- * 注:以Rr开头是为了方便ide自动提示
+ * 注:以Rr开头是为了直接敲两下r方便ide自动提示
  *
  * @author J
- * @time 2018/9/27 22:26
- * @description 通用返回结果类
  **/
 public class RrMap extends HashMap<String, Object> {
 

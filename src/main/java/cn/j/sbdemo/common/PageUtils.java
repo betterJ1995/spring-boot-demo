@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletRequest;
  **/
 public class PageUtils {
 
-    public static final String PAGE_NO_PARAM = "pNo";
-    public static final String PAGE_SIZE_PARAM = "pSize";
-    public static final String PAGE_ORDER_FIELD = "oField";
-    public static final String PAGE_ORDER_TYPE = "oType";
+    public static final String PAGE_NO_PARAM = "pageNo";
+    public static final String PAGE_SIZE_PARAM = "pageSize";
+    public static final String PAGE_ORDER_FIELD = "orderField";
+    public static final String PAGE_ORDER_TYPE = "orderType";
 
     public static final String ORDER_TYPE_ASC = "ASC";
     public static final String ORDER_TYPE_DESC = "DESC";

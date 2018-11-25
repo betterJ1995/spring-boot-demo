@@ -10,7 +10,7 @@ import java.util.Date;
  *
  * @author J
  **/
-public class ExtendDateUtil {
+public class ExtendDateUtils {
     /**
      * 获取周一
      *
@@ -82,10 +82,10 @@ public class ExtendDateUtil {
 
     public static void main(String[] args) {
         Date date = new Date();
-        Date monday = ExtendDateUtil.getMonday(date);
-        Date sunday = ExtendDateUtil.getSunday(date);
-        Date monthFirst = ExtendDateUtil.getMonthFirst(date);
-        Date monthLast = ExtendDateUtil.getMonthLast(date);
+        Date monday = ExtendDateUtils.getMonday(date);
+        Date sunday = ExtendDateUtils.getSunday(date);
+        Date monthFirst = ExtendDateUtils.getMonthFirst(date);
+        Date monthLast = ExtendDateUtils.getMonthLast(date);
         System.out.println(monday);
         System.out.println(sunday);
         System.out.println(monthFirst);

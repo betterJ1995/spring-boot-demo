@@ -25,9 +25,16 @@ import java.util.Set;
  **/
 public class HttpUtils {
 
+    public final static int defaultTime = 3000;
 
     public static String get(String url) throws IOException {
+        return get(url, defaultTime, defaultTime);
+    }
+
+    public static String get(String url, int connTimeout, int socketTimeout) throws IOException {
         return Request.Get(url)
+                .connectTimeout(connTimeout)
+                .socketTimeout(socketTimeout)
                 .execute()
                 .returnContent()
                 .asString();
@@ -149,5 +156,47 @@ public class HttpUtils {
         BASE64Encoder encoder = new BASE64Encoder();
         String base64 = "data:" + contentType + ";base64," + encoder.encode(bytes);
         return base64;
+    }
+
+    public static String buildUrl(String url, Map<String, String> params) {
+        if (params == null || params.size() == 0) {
+            return url;
+        }
+
+        Set<Map.Entry<String, String>> entrySet = params.entrySet();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Map.Entry<String, String> item : entrySet) {
+            String key = item.getKey();
+            String value = item.getValue();
+            if (isNotBlank(key) && isNotBlank(value)) {
+                stringBuilder.append(key).append("=").append(value).append("&");
+            }
+        }
+
+        int len = stringBuilder.length();
+        if (len > 0) {
+            return url + "?" + stringBuilder.substring(0, len - 1);
+        }
+
+        return url;
+    }
+
+    private static boolean isNotBlank(CharSequence cs) {
+        return !isBlank(cs);
+    }
+
+    private static boolean isBlank(CharSequence cs) {
+        int strLen;
+        if (cs != null && (strLen = cs.length()) != 0) {
+            for (int i = 0; i < strLen; ++i) {
+                if (!Character.isWhitespace(cs.charAt(i))) {
+                    return false;
+                }
+            }
+
+            return true;
+        } else {
+            return true;
+        }
     }
 }

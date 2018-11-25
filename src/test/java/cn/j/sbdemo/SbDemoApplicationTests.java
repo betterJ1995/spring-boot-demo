@@ -28,8 +28,9 @@ public class SbDemoApplicationTests {
         System.out.println("===========");
         System.out.println("===========");
         //Creating a new SqlSession
-        System.out.println(productDao.selectAll());
         System.out.println(productDao.selectByPrimaryKey(1));
+
+        System.out.println(productDao.selectAll());
         //
         System.out.println(userBusinessDao.selectByPrimaryKey(1));
         productService.addProductNoT("测试不加事务");
