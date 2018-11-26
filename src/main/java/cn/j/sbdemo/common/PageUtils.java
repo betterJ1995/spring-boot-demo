@@ -13,9 +13,21 @@ import javax.servlet.http.HttpServletRequest;
  **/
 public class PageUtils {
 
+    /**
+     * 页码
+     */
     public static final String PAGE_NO_PARAM = "pageNo";
+    /**
+     * 页大小
+     */
     public static final String PAGE_SIZE_PARAM = "pageSize";
+    /**
+     * 排序字段
+     */
     public static final String PAGE_ORDER_FIELD = "orderField";
+    /**
+     * 排序类型  asc  desc
+     */
     public static final String PAGE_ORDER_TYPE = "orderType";
 
     public static final String ORDER_TYPE_ASC = "ASC";

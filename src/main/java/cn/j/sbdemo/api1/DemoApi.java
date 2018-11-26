@@ -21,6 +21,7 @@ public class DemoApi {
     public int postDemo() {
         Integer pn = PageUtils.getPageNo();
         System.out.println(pn);
+        System.out.println(1);
         return 1;
     }
 

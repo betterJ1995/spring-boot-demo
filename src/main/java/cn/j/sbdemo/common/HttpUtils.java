@@ -1,157 +1,159 @@
 package cn.j.sbdemo.common;
 
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.EntityBuilder;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Encoder;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * http请求工具类
- * 基于 fluent-hc
+ * 依赖 fluent-hc , fastjson
  * created on 2018/11/23.
  *
  * @author J
  **/
 public class HttpUtils {
 
-    public final static int defaultTime = 3000;
+    private static Logger logger = LoggerFactory.getLogger(HttpUtils.class);
 
-    public static String get(String url) throws IOException {
-        return get(url, defaultTime, defaultTime);
+    /**
+     * 默认超时时间 5秒
+     */
+    public final static int DEF_TIME_OUT = 5000;
+
+    /**
+     * 若文件以byte方式发送,则在form data里put该键表示文件名
+     */
+    public static final String BYTE_FILE_NAME = "byteFileName";
+
+    private static final String ENCODING = "UTF-8";
+
+    public static JSONObject get(String url, Map<String, String> paraMap) throws IOException {
+        return get(url, paraMap, DEF_TIME_OUT, DEF_TIME_OUT);
     }
 
-    public static String get(String url, int connTimeout, int socketTimeout) throws IOException {
-        return Request.Get(url)
+
+    public static JSONObject get(String url, Map<String, String> paraMap, int connTimeout, int socketTimeout) throws IOException {
+        url = buildUrl(url, paraMap);
+        logger.info("GET URL: {}", url);
+        String re = Request.Get(url)
                 .connectTimeout(connTimeout)
                 .socketTimeout(socketTimeout)
                 .execute()
                 .returnContent()
                 .asString();
-    }
-
-    public static String get(String url, Map<String, String> paraMap) throws IOException {
-        StringBuilder paraStr = new StringBuilder();
-        Set<Map.Entry<String, String>> entrySet = paraMap.entrySet();
-        for (Map.Entry<String, String> item : entrySet) {
-            paraStr.append("&").append(item.getKey()).append("=").append(item.getValue());
-        }
-        return Request.Get(url + paraStr)
-                .execute()
-                .returnContent()
-                .asString();
-    }
-
-    public static String postFile(String url, HttpEntity httpEntity) throws IOException {
-        return Request.Post(url)
-                .body(httpEntity)
-                .execute()
-                .returnContent()
-                .asString();
-    }
-
-    public static String postJSON(String url, Object o) throws IOException {
-        return Request.Post(url)
-                .body(entityJSON(o))
-                .execute()
-                .returnContent()
-                .asString();
-    }
-
-    public static String postForm(String url, List<NameValuePair> parameters) throws IOException {
-        EntityBuilder entityBuilder = EntityBuilder.create();
-        entityBuilder.setParameters(parameters);
-        entityBuilder.setContentType(ContentType.create("application/x-www-form-urlencoded", "UTF-8"));
-        return Request.Post(url)
-                .body(entityBuilder.build())
-                .execute()
-                .returnContent()
-                .asString();
+        return JSONObject.parseObject(re);
     }
 
 
     /**
-     * 构造发送文件的 entity
+     * post JSON 数据
      *
-     * @param bytes    byte数组
-     * @param fileName 文件名
-     * @param fileKey  对方接收文件的参数名
+     * @param url     url
+     * @param paraMap url参数
+     * @param jsonObj 需要转化为JSON字符串的对象，一般是一个实体或者是一个Map
      * @return
+     * @throws IOException
      */
-    public static HttpEntity entityFile(byte[] bytes, String fileName, String fileKey) {
-        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        //设置成该模式 中文文件名 就不会出现乱码
-        builder.setMode(HttpMultipartMode.RFC6532);
-        //使用stream 百度接口收不到
-        builder.addBinaryBody(fileKey, bytes, ContentType.MULTIPART_FORM_DATA, fileName);
-        return builder.build();
+    public static JSONObject postJSON(String url, Map<String, String> paraMap, Object jsonObj) throws IOException {
+        return postJSON(url, paraMap, jsonObj);
     }
 
+    public static JSONObject postJSON(String url, Map<String, String> paraMap, Object jsonObj, int connTimeout, int socketTimeout) throws IOException {
+        url = buildUrl(url, paraMap);
+        logger.info("POST URL: {}", url);
 
-    /**
-     * 构造发送文件的 entity
-     *
-     * @param paraMap 除文件以外的键值对
-     * @return
-     */
-    public static HttpEntity entityFile(byte[] bytes, String fileName, String fileKey, Map<String, String> paraMap) {
-        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        //设置成该模式 中文文件名 就不会出现乱码
-        builder.setMode(HttpMultipartMode.RFC6532);
-        //使用stream 百度接口收不到
-        builder.addBinaryBody(fileKey, bytes, ContentType.MULTIPART_FORM_DATA, fileName);
-        Set<Map.Entry<String, String>> entrySet = paraMap.entrySet();
-        for (Map.Entry<String, String> item : entrySet) {
-            builder.addTextBody(item.getKey(), item.getValue());
-        }
-        return builder.build();
-    }
+        String jsonStr = JSONObject.toJSONString(jsonObj);
+        logger.info("POST SEND JSON DATA: {}", jsonStr);
 
-
-    /**
-     * 构造发送文件的 entity
-     *
-     * @param paraMap 除文件以外的键值（数组）对
-     * @return
-     */
-    public static HttpEntity entityFile1(byte[] bytes, String fileName, String fileKey, Map<String, String[]> paraMap) {
-        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        //设置成该模式 中文文件名 就不会出现乱码
-        builder.setMode(HttpMultipartMode.RFC6532);
-        //使用stream 百度接口收不到
-        builder.addBinaryBody(fileKey, bytes, ContentType.MULTIPART_FORM_DATA, fileName);
-        Set<Map.Entry<String, String[]>> entrySet = paraMap.entrySet();
-        for (Map.Entry<String, String[]> item : entrySet) {
-            String key = item.getKey();
-            String[] values = item.getValue();
-            for (String valueItem : values) {
-                builder.addTextBody(key, valueItem);
-            }
-        }
-        return builder.build();
-    }
-
-    public static HttpEntity entityJSON(Object object) {
-        return entityJSON(object, "UTF-8");
-    }
-
-    public static HttpEntity entityJSON(Object object, String charSet) {
-        StringEntity stringEntity = null;
-        stringEntity = new StringEntity(JSONObject.toJSONString(object), charSet);
+        StringEntity stringEntity = new StringEntity(jsonStr, ENCODING);
         stringEntity.setContentType("application/json");
-        return stringEntity;
+
+        return post(url, stringEntity, connTimeout, socketTimeout);
+
+
     }
 
+    /**
+     * post 表单数据
+     *
+     * @param url     url
+     * @param paraMap url参数Map
+     * @param formMap 表单参数map
+     *                发送文件 支持file类型和byte[]类型，
+     *                若为byte[]类型时，需在map中传入文件名，key为{@link HttpUtils#BYTE_FILE_NAME}
+     * @return
+     * @throws IOException
+     */
+    public static JSONObject postForm(String url, Map<String, String> paraMap, Map<String, Object> formMap) throws IOException {
+        return postForm(url, paraMap, formMap, DEF_TIME_OUT, DEF_TIME_OUT);
+    }
+
+    public static JSONObject postForm(String url, Map<String, String> paraMap, Map<String, Object> formMap, int connTimeout, int socketTimeout) throws IOException {
+
+        url = buildUrl(url, paraMap);
+        logger.info("POST URL: {}", url);
+
+        MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
+        entityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+
+        if (formMap != null && formMap.size() > 0) {
+            Set<Map.Entry<String, Object>> entrySet = formMap.entrySet();
+            for (Map.Entry<String, Object> item : entrySet) {
+                String itemKey = item.getKey();
+                Object itemValue = item.getValue();
+                //若是文件类型
+                if (itemValue instanceof File) {
+                    FileBody fileBody = new FileBody((File) itemValue);
+                    entityBuilder.addPart(itemKey, fileBody);
+
+                } else if (itemValue instanceof byte[]) {
+                    //byte[]文件
+                    String name = (String) formMap.get(BYTE_FILE_NAME);
+                    if (StringUtils.isBlank(name)) {
+                        name = RandomStringUtils.randomAlphanumeric(16);
+                    }
+                    ByteArrayBody byteArrayBody = new ByteArrayBody((byte[]) itemValue, ContentType.MULTIPART_FORM_DATA, name);
+                    entityBuilder.addPart(itemKey, byteArrayBody);
+                    //若是byte数组 不设置成该模式文件名乱码
+                    entityBuilder.setMode(HttpMultipartMode.RFC6532);
+                } else {
+                    StringBody name = new StringBody(itemValue.toString(),
+                            ContentType.TEXT_PLAIN.withCharset(ENCODING));
+                    entityBuilder.addPart(itemKey, name);
+                }
+            }
+            //移除对应的文件名,因为不需要打印
+            if (formMap.containsKey(BYTE_FILE_NAME)) {
+                formMap.remove(BYTE_FILE_NAME);
+            }
+
+            logger.info("POST SEND FORM DATA: {}", formMap);
+        }
+
+        return post(url, entityBuilder.build(), connTimeout, socketTimeout);
+    }
+
+
+    /**
+     * 转换base64
+     */
     public static String base64Img(String contentType, byte[] bytes) {
         BASE64Encoder encoder = new BASE64Encoder();
         String base64 = "data:" + contentType + ";base64," + encoder.encode(bytes);
@@ -168,7 +170,7 @@ public class HttpUtils {
         for (Map.Entry<String, String> item : entrySet) {
             String key = item.getKey();
             String value = item.getValue();
-            if (isNotBlank(key) && isNotBlank(value)) {
+            if (StringUtils.isNotBlank(key) && StringUtils.isNotBlank(value)) {
                 stringBuilder.append(key).append("=").append(value).append("&");
             }
         }
@@ -181,22 +183,16 @@ public class HttpUtils {
         return url;
     }
 
-    private static boolean isNotBlank(CharSequence cs) {
-        return !isBlank(cs);
-    }
 
-    private static boolean isBlank(CharSequence cs) {
-        int strLen;
-        if (cs != null && (strLen = cs.length()) != 0) {
-            for (int i = 0; i < strLen; ++i) {
-                if (!Character.isWhitespace(cs.charAt(i))) {
-                    return false;
-                }
-            }
+    private static JSONObject post(String url, HttpEntity httpEntity, int connTimeout, int socketTimeout) throws IOException {
+        String re = Request.Post(url)
+                .body(httpEntity)
+                .connectTimeout(connTimeout)
+                .socketTimeout(socketTimeout)
+                .execute()
+                .returnContent()
+                .asString();
 
-            return true;
-        } else {
-            return true;
-        }
+        return JSONObject.parseObject(re);
     }
 }
