@@ -19,6 +19,9 @@ spring:
       enabled: true
 mybatis:
   mapper-locations: classpath*:mybatis/*.xml
+  configuration:
+    local-cache-scope: statement
+    cache-enabled: false
 
 
 swagger:

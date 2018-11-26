@@ -30,7 +30,6 @@
     <logger name="cn.j.sbdemo" level="debug"/>
     <logger name="org.springframework" level="debug"/>
     <logger name="org.mybatis" level="debug"/>
-    <logger name="com.baomidou.mybatisplus" level="debug"/>
 
     <logger name="org.springframework.web" level="info"/>
     <logger name="org.springframework.core" level="info"/>
@@ -40,6 +39,7 @@
     <logger name="org.springframework.aop.framework" level="info"/>
     <logger name="org.springframework.context.annotation" level="info"/>
     <logger name="org.apache" level="info"/>
+    <logger name="org.springframework.test" level="info"/>
 
     <root level="info">
         <appender-ref ref="CONSOLE"/>
