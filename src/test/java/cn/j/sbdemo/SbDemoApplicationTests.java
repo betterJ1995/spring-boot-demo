@@ -32,7 +32,12 @@ public class SbDemoApplicationTests {
         System.out.println("===========");
         System.out.println("===========");
         //Creating a new SqlSession
-        System.out.println(productDao.selectByPrimaryKey(1));
+        System.out.println(productService.pageProduct(1,20));
+//        System.out.println(productDao.selectByPrimaryKey(1));
+//        System.out.println(productDao.selectByPrimaryKey(1));
+
+//        System.out.println(productDao.selectId1());
+//        System.out.println(productDao.selectId1());
 
 //        System.out.println(productDao.selectAll());
 //        //

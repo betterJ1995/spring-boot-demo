@@ -16,19 +16,19 @@ public class PageUtils {
     /**
      * 页码
      */
-    public static final String PAGE_NO_PARAM = "pageNo";
+    public static final String PAGE_NO = "pageNo";
     /**
      * 页大小
      */
-    public static final String PAGE_SIZE_PARAM = "pageSize";
+    public static final String PAGE_SIZE = "pageSize";
     /**
      * 排序字段
      */
-    public static final String PAGE_ORDER_FIELD = "orderField";
+    public static final String ORDER_FIELD = "orderField";
     /**
      * 排序类型  asc  desc
      */
-    public static final String PAGE_ORDER_TYPE = "orderType";
+    public static final String ORDER_TYPE = "orderType";
 
     public static final String ORDER_TYPE_ASC = "ASC";
     public static final String ORDER_TYPE_DESC = "DESC";
@@ -38,7 +38,7 @@ public class PageUtils {
     }
 
     public static Integer getPageNo(HttpServletRequest request) {
-        String pNo = request.getParameter(PAGE_NO_PARAM);
+        String pNo = request.getParameter(PAGE_NO);
         if (pNo == null) {
             return 1;
         }
@@ -54,7 +54,7 @@ public class PageUtils {
     }
 
     public static Integer getPageSize(HttpServletRequest request, int defaultVal) {
-        String pageSize = request.getParameter(PAGE_SIZE_PARAM);
+        String pageSize = request.getParameter(PAGE_SIZE);
         if (pageSize == null) {
             return defaultVal;
         }
@@ -67,7 +67,7 @@ public class PageUtils {
     }
 
     public static String getOrderFiled(HttpServletRequest request) {
-        return request.getParameter(PAGE_ORDER_FIELD);
+        return request.getParameter(ORDER_FIELD);
     }
 
     public static String getOrderType() {
@@ -75,7 +75,7 @@ public class PageUtils {
     }
 
     public static String getOrderType(HttpServletRequest request) {
-        String orderType = request.getParameter(PAGE_ORDER_TYPE);
+        String orderType = request.getParameter(ORDER_TYPE);
         if (orderType == null) {
             return ORDER_TYPE_ASC;
         }
@@ -93,13 +93,26 @@ public class PageUtils {
     }
 
     public static Boolean getIsASC(HttpServletRequest request) {
-        String orderType = request.getParameter(PAGE_ORDER_TYPE);
+        String orderType = request.getParameter(ORDER_TYPE);
         if (orderType != null) {
             return ORDER_TYPE_ASC.equalsIgnoreCase(orderType);
         } else {
             return true;
         }
     }
+
+    public static Page page() {
+        return page(getRequest());
+    }
+
+    public static Page page(HttpServletRequest request) {
+        return new Page()
+                .setPageNo(getPageNo(request))
+                .setPageSize(getPageSize(request))
+                .setOrderField(getOrderFiled(request))
+                .setOrderType(getOrderType(request));
+    }
+
 
     /**
      * based on spring-web

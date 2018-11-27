@@ -1,5 +1,6 @@
 package cn.j.sbdemo.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Id;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import lombok.experimental.Accessors;
 @ToString
 @NoArgsConstructor
 @Accessors(chain = true)
-public class Product {
+public class Product implements Serializable {
     @Id
     private Integer id;
 

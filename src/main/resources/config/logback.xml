@@ -34,7 +34,7 @@
     <logger name="org.springframework.web" level="info"/>
     <logger name="org.springframework.core" level="info"/>
     <logger name="org.springframework.beans.factory" level="info"/>
-    <logger name="org.springframework.boot.web" level="info"/>
+    <logger name="org.springframework.boot" level="info"/>
     <logger name="org.springframework.core.env" level="info"/>
     <logger name="org.springframework.aop.framework" level="info"/>
     <logger name="org.springframework.context.annotation" level="info"/>

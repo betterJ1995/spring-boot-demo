@@ -29,6 +29,9 @@
         <swagger.version>2.9.2</swagger.version>
         <swagger.bootstrap.ui.version>1.8.5</swagger.bootstrap.ui.version>
         <httpclient.version>4.5.6</httpclient.version>
+        <pagehelper.version>1.2.10</pagehelper.version>
+        <druid.version>1.1.10</druid.version>
+        <lombok.version>1.18.4</lombok.version>
     </properties>
 
     <dependencies>
@@ -49,7 +52,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.1.10</version>
+            <version>${druid.version}</version>
         </dependency>
 
         <!--mysql 驱动-->
@@ -63,7 +66,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.4</version>
+            <version>${lombok.version}</version>
             <optional>true</optional>
         </dependency>
 
@@ -79,6 +82,13 @@
             <artifactId>mapper-spring-boot-starter</artifactId>
             <version>${mapper.spring.boot.starter.version}</version>
         </dependency>
+        <!-- 分页插件 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>${pagehelper.version}</version>
+        </dependency>
+
 
         <!--swagger 接口文档-->
         <dependency>

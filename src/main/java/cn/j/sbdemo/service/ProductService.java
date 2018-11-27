@@ -1,8 +1,10 @@
 package cn.j.sbdemo.service;
 
+import cn.j.sbdemo.common.PageUtils;
 import cn.j.sbdemo.dao.ProductDao;
 import cn.j.sbdemo.dao.UserBusinessDao;
 import cn.j.sbdemo.entity.Product;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,4 +53,8 @@ public class ProductService {
         productDao.selectAll();
     }
 
+    public Page pageProduct(int pageNum, int pageSize) {
+        PageUtils.page(pageNum, pageSize);
+        return (Page) productDao.pageProduct();
+    }
 }
