@@ -114,10 +114,23 @@ public class HttpUtils {
         entityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
 
         if (formMap != null && formMap.size() > 0) {
+            //移除对应的文件名,因为不需要打印
+            String byteFileName = null;
+            if (formMap.containsKey(BYTE_FILE_NAME)) {
+                byteFileName = (String) formMap.remove(BYTE_FILE_NAME);
+            }
+            logger.info("THE NEXT IS POST SEND FORM DATA");
             Set<Map.Entry<String, Object>> entrySet = formMap.entrySet();
             for (Map.Entry<String, Object> item : entrySet) {
                 String itemKey = item.getKey();
                 Object itemValue = item.getValue();
+
+                String valueToString = itemValue.toString();
+                //若太长,则截取160
+                logger.info("FORM ITEM : {}={}", itemKey
+                        , valueToString.length() > 160 ? valueToString.substring(0, 160) : valueToString
+                );
+
                 //若是文件类型
                 if (itemValue instanceof File) {
                     FileBody fileBody = new FileBody((File) itemValue);
@@ -125,11 +138,10 @@ public class HttpUtils {
 
                 } else if (itemValue instanceof byte[]) {
                     //byte[]文件
-                    String name = (String) formMap.get(BYTE_FILE_NAME);
-                    if (StringUtils.isBlank(name)) {
-                        name = RandomStringUtils.randomAlphanumeric(16);
+                    if (StringUtils.isBlank(byteFileName)) {
+                        byteFileName = RandomStringUtils.randomAlphanumeric(16);
                     }
-                    ByteArrayBody byteArrayBody = new ByteArrayBody((byte[]) itemValue, ContentType.MULTIPART_FORM_DATA, name);
+                    ByteArrayBody byteArrayBody = new ByteArrayBody((byte[]) itemValue, ContentType.MULTIPART_FORM_DATA, byteFileName);
                     entityBuilder.addPart(itemKey, byteArrayBody);
                     //若是byte数组 不设置成该模式文件名乱码
                     entityBuilder.setMode(HttpMultipartMode.RFC6532);
@@ -139,12 +151,7 @@ public class HttpUtils {
                     entityBuilder.addPart(itemKey, name);
                 }
             }
-            //移除对应的文件名,因为不需要打印
-            if (formMap.containsKey(BYTE_FILE_NAME)) {
-                formMap.remove(BYTE_FILE_NAME);
-            }
-
-            logger.info("POST SEND FORM DATA: {}", formMap);
+//            logger.info("POST SEND FORM DATA : {}", formMap);
         }
 
         return post(url, entityBuilder.build(), connTimeout, socketTimeout);
@@ -155,9 +162,17 @@ public class HttpUtils {
      * 转换base64
      */
     public static String base64Img(String contentType, byte[] bytes) {
-        BASE64Encoder encoder = new BASE64Encoder();
-        String base64 = "data:" + contentType + ";base64," + encoder.encode(bytes);
+        String base64 = "data:" + contentType + ";base64," + base64Img(bytes);
         return base64;
+    }
+
+
+    /**
+     * 转换base64
+     */
+    public static String base64Img(byte[] bytes) {
+        BASE64Encoder encoder = new BASE64Encoder();
+        return encoder.encode(bytes);
     }
 
     public static String buildUrl(String url, Map<String, String> params) {

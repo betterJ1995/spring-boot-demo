@@ -1,6 +1,7 @@
 package cn.j.sbdemo.common;
 
 import com.github.pagehelper.PageHelper;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 分页参数实体,用于传入service
@@ -61,6 +62,10 @@ public class Page {
     }
 
     public com.github.pagehelper.Page startPage(String orderString) {
+        if (StringUtils.isNotBlank(orderString)) {
+            return PageHelper.startPage(this.getPageNo(), this.getPageSize(), orderString);
+        }
 
+        return PageHelper.startPage(this.getPageNo(), this.getPageSize());
     }
 }

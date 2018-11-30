@@ -1,6 +1,5 @@
 package cn.j.sbdemo.service;
 
-import cn.j.sbdemo.common.PageUtils;
 import cn.j.sbdemo.dao.ProductDao;
 import cn.j.sbdemo.dao.UserBusinessDao;
 import cn.j.sbdemo.entity.Product;
@@ -54,7 +53,6 @@ public class ProductService {
     }
 
     public Page pageProduct(int pageNum, int pageSize) {
-        PageUtils.page(pageNum, pageSize);
         return (Page) productDao.pageProduct();
     }
 }
