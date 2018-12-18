@@ -61,6 +61,7 @@ public class Page {
         return this;
     }
 
+
     public com.github.pagehelper.Page startPage(String orderString) {
         if (StringUtils.isNotBlank(orderString)) {
             return PageHelper.startPage(this.getPageNo(), this.getPageSize(), orderString);
@@ -68,4 +69,5 @@ public class Page {
 
         return PageHelper.startPage(this.getPageNo(), this.getPageSize());
     }
+
 }

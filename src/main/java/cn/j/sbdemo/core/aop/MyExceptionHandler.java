@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
+ * RestController AOP异常处理器
+ *
  * @author J
- * @time 2018/9/27 22:50
- * @description RestController AOP异常处理器
  **/
 @RestControllerAdvice
 public class MyExceptionHandler {

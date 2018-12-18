@@ -7,6 +7,7 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Getter
@@ -14,7 +15,7 @@ import java.math.BigDecimal;
 @ToString
 @NoArgsConstructor
 @Accessors(chain = true)
-public class UserCustomer {
+public class UserCustomer  implements Serializable {
     @Id
     private Integer id;
 

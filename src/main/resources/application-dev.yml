@@ -12,6 +12,3 @@ spring:
     username: root
     password: 1234
     sql-script-encoding: utf-8
-
-logging:
-  config: classpath:config/logback.xml

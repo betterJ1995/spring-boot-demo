@@ -53,6 +53,7 @@ public class ProductService {
     }
 
     public Page pageProduct(int pageNum, int pageSize) {
+//        PageUtils.page(pageNum, pageSize);
         return (Page) productDao.pageProduct();
     }
 }

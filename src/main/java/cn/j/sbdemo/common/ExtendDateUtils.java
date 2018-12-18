@@ -80,7 +80,7 @@ public class ExtendDateUtils {
     }
 
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         Date date = new Date();
         Date monday = ExtendDateUtils.getMonday(date);
         Date sunday = ExtendDateUtils.getSunday(date);
@@ -90,5 +90,5 @@ public class ExtendDateUtils {
         System.out.println(sunday);
         System.out.println(monthFirst);
         System.out.println(monthLast);
-    }
+    }*/
 }
